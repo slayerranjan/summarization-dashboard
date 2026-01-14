@@ -4,3 +4,4 @@ pandas
 nltk
 rouge-score
 google-generativeai
+transformers
