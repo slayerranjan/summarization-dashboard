@@ -5,3 +5,4 @@ nltk
 rouge-score
 google-generativeai
 transformers
+torch
