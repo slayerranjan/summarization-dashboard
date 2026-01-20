@@ -1,8 +1,9 @@
 python-dotenv
 pandas
-nltk
+nltk==3.8.1
 rouge-score
 google-generativeai
 transformers==4.36.2
-torch>=2.0.0
-sentencepiece
+torch==2.0.1
+sentencepiece==0.1.99
+
