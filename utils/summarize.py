@@ -28,7 +28,9 @@ if not gemini_key:
 
 # --- Configure Gemini (new SDK) ---
 import google.genai as genai
-genai.configure(api_key=gemini_key)
+
+# Create a client with the API key (new SDK pattern)
+client = genai.Client(api_key=gemini_key)
 
 # ---------- Gemini summarization ----------
 def summarize_gemini(text: str, style: str = "neutral", max_words: int = 150) -> str:
@@ -44,7 +46,7 @@ def summarize_gemini(text: str, style: str = "neutral", max_words: int = 150) ->
 
     prompt = f"{style_instructions.get(style, style_instructions['neutral'])}\n\n{text}"
 
-    model = genai.GenerativeModel("models/gemini-2.5-flash")
+    model = client.GenerativeModel("models/gemini-2.5-flash")
     resp = model.generate_content(prompt)
 
     if hasattr(resp, "text") and resp.text:
