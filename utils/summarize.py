@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 
 # --- Ensure NLTK resources are available (Cloud-safe) ---
 nltk.download("punkt", quiet=True)
-nltk.download("punkt_tab", quiet=True)
 
 # --- Load local environment variables ---
 load_dotenv()
