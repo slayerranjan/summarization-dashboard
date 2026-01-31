@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 
 # --- Ensure NLTK resources are available (Cloud-safe) ---
 nltk.download("punkt", quiet=True)
+nltk.download("averaged_perceptron_tagger", quiet=True)
 
 # --- Load local environment variables ---
 load_dotenv()
@@ -26,11 +27,10 @@ if not gemini_key:
 if not gemini_key:
     raise RuntimeError("GEMINI_API_KEY is missing. Set it in Streamlit Secrets (cloud) or .env (local).")
 
-# --- Configure Gemini (new SDK) ---
-import google.genai as genai
+# --- Configure Gemini (old stable SDK) ---
+import google.generativeai as genai
 
-# Create a client with the API key (new SDK pattern)
-client = genai.Client(api_key=gemini_key)
+genai.configure(api_key=gemini_key)
 
 # ---------- Gemini summarization ----------
 def summarize_gemini(text: str, style: str = "neutral", max_words: int = 150) -> str:
@@ -46,7 +46,7 @@ def summarize_gemini(text: str, style: str = "neutral", max_words: int = 150) ->
 
     prompt = f"{style_instructions.get(style, style_instructions['neutral'])}\n\n{text}"
 
-    model = client.GenerativeModel("models/gemini-2.5-flash")
+    model = genai.GenerativeModel("models/gemini-2.5-flash")
     resp = model.generate_content(prompt)
 
     if hasattr(resp, "text") and resp.text:
