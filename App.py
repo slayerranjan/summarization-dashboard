@@ -1,12 +1,16 @@
 import streamlit as st
-import os
 import importlib.util
 import pathlib
-from dotenv import load_dotenv
 import pandas as pd
+import nltk
 
-# ---------- Env ----------
-load_dotenv()
+# ---------- Ensure NLTK resources ----------
+# This block ensures both punkt and punkt_tab are available in Streamlit Cloud
+for resource in ["punkt", "punkt_tab"]:
+    try:
+        nltk.data.find(f"tokenizers/{resource}")
+    except LookupError:
+        nltk.download(resource)
 
 # ---------- Load summarize.py ----------
 summarize_path = pathlib.Path(__file__).parent / "utils" / "summarize.py"
@@ -99,12 +103,6 @@ if st.button("Generate summary"):
                 else:
                     from rouge_score import rouge_scorer
                     from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
-                    import nltk
-
-                    try:
-                        nltk.data.find('tokenizers/punkt')
-                    except LookupError:
-                        nltk.download('punkt')
 
                     scorer = rouge_scorer.RougeScorer(['rouge1', 'rougeL'], use_stemmer=True)
                     rouge_scores = scorer.score(ref_summary, summary)

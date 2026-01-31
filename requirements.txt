@@ -3,10 +3,17 @@ python-dotenv
 pandas
 nltk
 rouge-score
+<<<<<<< HEAD
 google-genai
 transformers==4.35.2
 torch
 sentencepiece
 
 
+=======
+transformers==4.35.2
+torch
+sentencepiece
+google-genai
+>>>>>>> fde0703 (Update summarize.py to use google.genai, fix requirements, add .gitignore)
 
