@@ -1,9 +1,10 @@
 streamlit
 python-dotenv
 pandas
-nltk==3.8.1
+nltk
 rouge-score
-transformers==4.36.2
+transformers
 torch
-sentencepiece==0.2.0
+sentencepiece
+
 
