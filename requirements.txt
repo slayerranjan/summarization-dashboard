@@ -3,10 +3,10 @@ python-dotenv
 pandas
 nltk
 rouge-score
+google-genai
 transformers==4.35.2
 torch
 sentencepiece
-google-generativeai
 
 
 
