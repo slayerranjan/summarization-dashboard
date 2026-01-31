@@ -6,5 +6,6 @@ rouge-score
 transformers
 torch
 sentencepiece
+google-generativeai
 
 
