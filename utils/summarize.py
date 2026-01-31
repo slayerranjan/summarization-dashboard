@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 
 # --- Ensure NLTK resources are available (Cloud-safe) ---
 nltk.download("punkt", quiet=True)
+nltk.download("punkt_tab", quiet=True)
 nltk.download("averaged_perceptron_tagger", quiet=True)
 nltk.download("averaged_perceptron_tagger_eng", quiet=True)
 nltk.download("maxent_ne_chunker", quiet=True)
@@ -66,10 +67,13 @@ def summarize_hf(text: str, max_words: int = 150) -> str:
     from transformers import pipeline
 
     summarizer = pipeline("summarization", model="sshleifer/distilbart-cnn-12-6")
-    # Convert word target to a safe token length; DistilBART expects tokens
-    max_tokens = max(64, int(max_words * 1.5))
-    # Cap max_length to avoid warnings if input is shorter
-    max_tokens = min(max_tokens, len(text) + 100)
 
-    res = summarizer(text, max_length=max_tokens, min_length=60, do_sample=False)
+    # Hugging Face expects tokens, not words
+    max_tokens = int(max_words * 1.2)
+
+    # Ensure max_length is never greater than input length
+    input_len = len(text.split())
+    max_tokens = min(max_tokens, input_len)
+
+    res = summarizer(text, max_length=max_tokens, min_length=30, do_sample=False)
     return res[0]["summary_text"].strip()
