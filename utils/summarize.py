@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 # --- Ensure NLTK resources are available (Cloud-safe) ---
 nltk.download("punkt", quiet=True)
 nltk.download("averaged_perceptron_tagger", quiet=True)
+nltk.download("averaged_perceptron_tagger_eng", quiet=True)  # <-- extra resource needed in cloud
 
 # --- Load local environment variables ---
 load_dotenv()
